@@ -175,7 +175,8 @@
       file←1⊃V
       type←819⌶2⊃V ⍝ Lowercase
      
-      1 ⎕NDELETE file
+      dest←file
+      file←⊃(⎕NERASE⊢⎕NINFO)0 ⎕NCREATE⍠'Unique' 1⍨'/',⍨739⌶0
      
       :Select type
       :Case 'txt'
@@ -195,6 +196,14 @@
       :Else
           'Unknown file type'⎕SIGNAL 11
       :EndSelect
+      
+       fileTn←file ⎕NTIE 0
+       1 ⎕NDELETE dest
+       destTn←dest ⎕NCREATE 0
+       destTn('¯'⎕R'-')fileTn
+       ⎕NERASE fileTn
+       ⎕NUNTIE destTn
+
       Z←0 0⍴0
     ∇
 
